@@ -1,10 +1,8 @@
-<h1 align="center">💧广东水利电力学院完美校园签到</h1>
-<img src="https://img.shields.io/github/issues/srcrs/Perfect_Campus_AutoSignIn?color=green">
-<img src="https://img.shields.io/github/stars/srcrs/Perfect_Campus_AutoSignIn?color=yellow">
-<img src="https://img.shields.io/github/forks/srcrs/Perfect_Campus_AutoSignIn?color=orange">
-<img src="https://img.shields.io/github/license/srcrs/Perfect_Campus_AutoSignIn?color=ff69b4">
-<img src="https://img.shields.io/github/languages/code-size/srcrs/Perfect_Campus_AutoSignIn?color=blueviolet">
-</div>
+#💧广东水利电力学院完美校园签到
+
+**💧[广东水利电力学院](https://www.gdsdxy.edu.cn/)测试可用，欢迎大家 fork 测试使用，如果可用的话，可以开 [issue](https://github.com/llkhs/Perfect_Campus_AutoSignIn/issues) 让更多人知道****
+
+
 
 # 简介
 
