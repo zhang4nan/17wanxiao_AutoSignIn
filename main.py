@@ -25,6 +25,7 @@ def main():
         except BaseException:
             break
     # 提交打卡
+
     for index, value in enumerate(phone):
         print("-----------------------")
         print("开始获取用户%s信息" % (value[-4:]))
@@ -35,7 +36,7 @@ def main():
                 campus = CampusCard(phone[index], password[index])
                 token = campus.user_info["sessionId"]
                 time.sleep(1)
-                res = check_in(token)
+                res = check_in(token).json()
                 strTime = GetNowTime()
                 if res['code'] == '10000':
                     success.append(value[-4:])
@@ -122,7 +123,7 @@ def check_in(token):
     # print(jsons)
     # 提交打卡
     time.sleep(2)
-    res = requests.post(sign_url, json=jsons, timeout=10).json()
+    res = requests.post(sign_url, json=jsons, timeout=10)
     print(res)
     return res
 
@@ -131,17 +132,16 @@ def check_in(token):
 def WechatPush(title, sckey, success, fail, result):
     send_url = f"https://sc.ftqq.com/{sckey}.send"
     strTime = GetNowTime()
-    content = f"""
-        `{strTime}`
-        #### 打卡成功用户：
-        `{success}`
-        #### 打卡失败用户:
-        `{fail}`
-        #### 主用户打卡信息:
-        ```
-        {result}
-        ```
-            """
+    page = json.dumps(result, sort_keys=True, indent=4, separators=(',', ':'), ensure_ascii=False)
+    content = [f"""`{strTime}`
+#### 打卡成功用户:
+`{success}`
+#### 打卡失败用户:
+`{fail}`
+#### 主用户打卡信息:
+```
+{page}
+```"""]
     data = {
         "text": title,
         "desp": content
