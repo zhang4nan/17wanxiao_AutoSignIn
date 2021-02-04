@@ -102,7 +102,7 @@ class CampusCard:
             "https://app.17wanxiao.com/campus/cam_iface46/loginnew.action",
             headers={"campusSign": hashlib.sha256(json.dumps(upload_args).encode('utf-8')).hexdigest()},
             json=upload_args,
-
+            porxies=petals,
             verify=False
         ).json()
         print(resp.text)
