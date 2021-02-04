@@ -98,13 +98,15 @@ class CampusCard:
             "session": self.user_info["sessionId"],
             "data": des_3.object_encrypt(login_args, self.user_info["appKey"])
         }
-        resp = requests.post(
-            "https://app.17wanxiao.com/campus/cam_iface46/loginnew.action",
+        urlL = "https://app.17wanxiao.com/campus/cam_iface46/loginnew.action"
+        respw = requests.post(
+            url=urlL,
             headers={"campusSign": hashlib.sha256(json.dumps(upload_args).encode('utf-8')).hexdigest()},
             json=upload_args,
             porxies=petals,
             verify=False
-        ).json()
+        )
+        resp = respw.json()
         print(resp.text)
         if resp["result_"]:
             self.data = resp["data"]
