@@ -18,10 +18,11 @@ def main():
             sckey.append(info[2])
         except BaseException:
             break
+
     # 提交打卡
-    count, msg, run = 0, "null", False
     print("-----------------------")
     for index, value in enumerate(phone):
+        count, msg, run = 0, "null", False
         print("开始获取用户%s信息" % (value[-4:]))
         while count < 3:
             try:
@@ -41,7 +42,8 @@ def main():
                     msg = value[-4:] + "-失败-" + strTime
                     count = count + 1
                     print('%s打卡失败，开始第%d次重试...' % (value[-6:], count))
-                    time.sleep(301)
+                    result = res
+                    time.sleep(2)
 
             except Exception as err:
                 print(err)
@@ -116,7 +118,7 @@ def check_in(token):
     # print(jsons)
     # 提交打卡
     time.sleep(2)
-    res = requests.post(sign_url, json=jsons, timeout=10)
+    res = requests.post(sign_url, json=jsons, verify=False, timeout=10)
     print(res.json())
     return res
 

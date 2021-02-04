@@ -1,12 +1,11 @@
 import hashlib
 import json
-import sys
-
 import requests
 import urllib3
 
 from .campus_card import des_3
 from .campus_card import rsa_encrypt as rsa
+from .campus_card.rsa_encrypt import chrysanthemum
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -36,6 +35,7 @@ class CampusCard:
         当传入的已登录设备信息不可用时，虚拟一个空的未登录设备
         :return: 空设备信息
         """
+
         rsa_keys = rsa.create_key_pair(1024)
         return {
             'appKey': '',
@@ -43,7 +43,7 @@ class CampusCard:
             'exchangeFlag': True,
             'login': False,
             'serverPublicKey': '',
-            'deviceId': 868146026942328,
+            'deviceId': 6318864004041906,
             'wanxiaoVersion': 10531102,
             'rsaKey': {
                 'private': rsa_keys[1],
@@ -56,16 +56,11 @@ class CampusCard:
         与完美校园服务器交换RSA加密的公钥，并取得sessionId
         :return:
         """
-        resp = requests.post(
-            "https://app.17wanxiao.com/campus/cam_iface46/exchangeSecretkey.action",
-            headers={
-                "User-Agent": "NCP/5.3.1 (iPhone; iOS 13.5; Scale/2.00)",
-            },
-            json={
-                "key": self.user_info["rsaKey"]["public"]
-            },
-            verify=False
-        )
+        urlE = "https://app.17wanxiao.com/campus/cam_iface46/exchangeSecretkey.action"
+        headerE = {"User-Agent": "NCP/5.3.1 (iPhone; iOS 13.5; Scale/2.00)"}
+        jsonE = {"key": self.user_info["rsaKey"]["public"]}
+        petals = chrysanthemum()
+        resp = requests.post(url=urlE, headers=headerE, json=jsonE, proxies=petals, verify=False)
         session_info = json.loads(
             rsa.rsa_decrypt(resp.text.encode(resp.apparent_encoding), self.user_info["rsaKey"]["private"])
         )
@@ -115,7 +110,6 @@ class CampusCard:
             self.user_info["exchangeFlag"] = False
         else:
             print(resp['message_'])
-            sys.exit()
         return resp["result_"]
 
     # 如果不请求一下 token 会失效
@@ -125,7 +119,8 @@ class CampusCard:
             headers={
                 "Referer": "https://reportedh5.17wanxiao.com/health/index.html?templateid=pneumonia&businessType=epmpics&versioncode=10531102&systemType=IOS&UAinfo=wanxiao&token="+self.user_info["sessionId"],
                 "Origin": "https://reportedh5.17wanxiao.com",
-                "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E149 Wanxiao/5.3.1"
+                "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) "
+                              "AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E149 Wanxiao/5.3.1"
             },
             data={
                 "appClassify": "DK",
