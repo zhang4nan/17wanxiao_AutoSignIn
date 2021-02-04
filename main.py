@@ -82,7 +82,8 @@ def GetUserJson(token):
         "businessType": "epmpics",
         "method": "userComeApp"
     }
-    res = requests.post(sign_url, json=user_json, verify=False).json()
+    res = requests.post(sign_url, json=user_json, porixes=petals, verify=False).json()
+    print(res)
     data = json.loads(res['data'])
     post_dict = {
         "add": data['add'],
@@ -107,7 +108,7 @@ def GetUserJson(token):
                            for i in data['cusTemplateRelations']],
         }
     }
-    # print(post_dict)
+    print(post_dict)
     return post_dict
 
 
