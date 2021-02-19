@@ -39,6 +39,7 @@ def main():
                 if res['code'] == '10000':
                     success.append(value[-4:])
                     msg = value[-4:] + "-打卡成功-" + strTime
+                    isSmail = True
                     result = res
                     break
                 else:
