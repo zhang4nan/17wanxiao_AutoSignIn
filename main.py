@@ -56,14 +56,12 @@ def main():
                 failure.append(value[-4:])
                 count = count + 1
         print(msg)
-        try:
-            if isSmail:
-                Smail = sendEmail(mail[index], key[0], msg)
-                print(Smail)
-            else:
-                break
-        except Exception:
-            print('邮箱异常')
+        if isSmail:
+            try:
+                Semail = sendEmail(mail[index], key[0], msg)
+                print(Semail)
+            except Exception:
+                print('邮箱异常')
         print("-----------------------")
     fail = sorted(set(failure), key=failure.index)
     title = "成功: %s 人,失败: %s 人" % (len(success), len(fail))
