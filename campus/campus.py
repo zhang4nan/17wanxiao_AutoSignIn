@@ -119,8 +119,7 @@ class CampusCard:
         else:
             errmsg = resp['message_']
             print(errmsg)
-            print(errmsg)
-            return None
+            return resp["result_"]
 
     def save_user_info(self):
         """

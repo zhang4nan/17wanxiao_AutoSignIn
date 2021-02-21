@@ -5,8 +5,7 @@ import time
 
 
 def sendEmail(mail, key, isSmailCode):
-    print(isSmailCode)
-    if isSmailCode == 1:
+    if isSmailCode == 2:
         subject = " ♡ 打卡成功"  # 主题
     else:
         subject = "----------失败"  # 主题

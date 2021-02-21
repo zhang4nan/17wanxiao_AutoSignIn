@@ -28,20 +28,18 @@ def main():
     # 提交打卡
     print("-----------------------")
     for index, value in enumerate(phone):
-        i, count, msg, isSmail = 0, 0, "", 0
+        i, count, msg, isSmail = 0, 0, "", 1
         print("开始获取用户%s信息" % (value[-4:]))
-        while count < 2:
+        while count < 1:
             try:
                 campus = CampusCard(phone[index], password[index])
-                if campus:
-                    break
                 token = campus.user_info["sessionId"]
                 res = check_in(token).json()
                 strTime = GetNowTime()
                 if res['code'] == '10000':
                     success.append(value[-4:])
                     msg = value[-4:] + "-打卡成功-" + strTime
-                    isSmail = 1
+                    isSmail = 2
                     result = res
                     break
                 else:
