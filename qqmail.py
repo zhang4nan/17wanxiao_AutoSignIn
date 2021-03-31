@@ -10,7 +10,7 @@ def sendEmail(mail, key, isSmailCode):
     else:
         subject = "----------失败"  # 主题
 
-    msg_from = 'llkhs@qq.com'  # 发送方邮箱，
+    msg_from = '2420995917@qq.com'  # 发送方邮箱，
     passwd = ''.join(key)  # 填入发送方邮箱的授权码
     msg_to = ''.join(mail)   # 收件人邮箱
     content = timer()
