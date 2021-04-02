@@ -28,5 +28,7 @@ def sendEmail(mail, key, isSmailCode):
 
 
 def timer():
-    t = time.strftime("%m月%d号 %H点%M分", time.localtime())
+    now time =int（time.time()）
+    mow_time +=28800
+    t = time.strftime("%m月%d号 %H点%M分", time.localtime(now_time))
     return t
