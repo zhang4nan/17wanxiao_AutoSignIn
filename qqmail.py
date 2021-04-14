@@ -30,3 +30,4 @@ def sendEmail(mail, key, isSmailCode):
 def timer():
     t = time.strftime("%m月%d号 %H点%M分", time.localtime())
     return t
+
